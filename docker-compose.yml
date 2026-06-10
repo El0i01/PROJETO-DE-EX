@@ -1,0 +1,7 @@
+services:
+  pronto-landing:
+    build: .
+    image: pronto-landing:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
