@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -46,6 +47,104 @@ const IconArrow = ({ className = "" }: { className?: string }) => (
     <path d="M5 12h14M13 5l7 7-7 7" />
   </svg>
 );
+const IconMaximize = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M15 3h6v6" />
+    <path d="M9 21H3v-6" />
+    <path d="M21 3l-7 7" />
+    <path d="M3 21l7-7" />
+  </svg>
+);
+const IconX = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M18 6 6 18" />
+    <path d="m6 6 12 12" />
+  </svg>
+);
+const IconClock = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 6v6l4 2" />
+  </svg>
+);
+const IconUtensils = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+    <path d="M7 2v20" />
+    <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+  </svg>
+);
+const IconUsers = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+);
+const IconClipboardList = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    <path d="M12 11h4" />
+    <path d="M12 16h4" />
+    <path d="M8 11h.01" />
+    <path d="M8 16h.01" />
+  </svg>
+);
+const IconPhone = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+const IconAlertTriangle = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+    <path d="M12 9v4" />
+    <path d="M12 17h.01" />
+  </svg>
+);
+const IconZap = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+  </svg>
+);
+const IconRocket = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+  </svg>
+);
+const IconLock = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+  </svg>
+);
+const IconShieldCheck = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+    <path d="m9 12 2 2 4-4" />
+  </svg>
+);
+const IconRuler = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" />
+    <path d="m14.5 12.5 2-2" />
+    <path d="m11.5 9.5 2-2" />
+    <path d="m8.5 6.5 2-2" />
+    <path d="m17.5 15.5 2-2" />
+  </svg>
+);
+const IconWallet = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+    <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+    <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+  </svg>
+);
 
 /* ---------- Phone Mockup ---------- */
 function PhoneFrame({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -62,7 +161,7 @@ function PhoneFrame({ children, className = "" }: { children: React.ReactNode; c
 function HeroPhone() {
   return (
     <PhoneFrame>
-      <div className="h-full w-full flex flex-col">
+      <div className="h-full w-full flex flex-col animate-shake">
         {/* status bar */}
         <div className="px-6 pt-3 pb-2 flex items-center justify-between text-[11px] font-semibold text-brand-navy">
           <span>9:41</span>
@@ -78,7 +177,9 @@ function HeroPhone() {
         </div>
         {/* image card */}
         <div className="mx-5 mt-2 rounded-3xl overflow-hidden h-40 relative" style={{ background: "linear-gradient(135deg,#FFE0B2,#FFCC80)" }}>
-          <div className="absolute inset-0 flex items-center justify-center text-7xl">🥞</div>
+          <div className="absolute inset-0 flex items-center justify-center text-amber-900/40">
+            <IconUtensils className="w-14 h-14" />
+          </div>
           <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] font-bold text-white" style={{ background: "var(--brand-green-deep)" }}>
             Preparando
           </div>
@@ -106,16 +207,27 @@ function HeroPhone() {
           <p className="mt-2 text-[11px] text-muted-foreground">Tempo estimado: 4 min</p>
         </div>
         {/* push notification */}
-        <div className="absolute top-12 left-3 right-3 animate-push">
+        <div className="absolute top-12 left-3 right-3 animate-push z-20">
           <div className="rounded-2xl bg-white/95 backdrop-blur-md shadow-float p-3 flex items-start gap-3 border border-white">
             <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white" style={{ background: "var(--brand-green-deep)" }}>
               <IconBell className="w-4 h-4" />
             </div>
             <div className="min-w-0">
               <p className="text-[11px] font-bold text-brand-navy">PRONTO!</p>
-              <p className="text-[11px] text-brand-navy/80 leading-tight">🔔 Seu pedido está pronto para retirada!</p>
+              <p className="text-[11px] text-brand-navy/80 leading-tight">Seu pedido está pronto para retirada!</p>
             </div>
           </div>
+        </div>
+        {/* success screen */}
+        <div
+          className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-10 animate-success"
+          style={{ background: "linear-gradient(160deg, var(--brand-green) 0%, var(--brand-green-deep) 100%)" }}
+        >
+          <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center text-brand-green-deep animate-success-check">
+            <IconCheck className="w-10 h-10" />
+          </div>
+          <h3 className="mt-6 text-2xl font-extrabold text-white">Pedido pronto!</h3>
+          <p className="mt-2 text-sm text-white/90">Obrigado pelo pedido! Pode retirar no balcão.</p>
         </div>
       </div>
     </PhoneFrame>
@@ -127,6 +239,87 @@ function MiniPhone({ children }: { children: React.ReactNode }) {
     <div className="w-[160px] h-[320px] rounded-[28px] bg-brand-navy p-[6px] shadow-soft mx-auto">
       <div className="w-full h-full rounded-[22px] bg-brand-cream overflow-hidden relative">{children}</div>
     </div>
+  );
+}
+
+function ExpandablePhone({
+  children,
+  scale = 1.6,
+  className = "",
+  label = "Ampliar mockup do app",
+}: {
+  children: React.ReactNode;
+  scale?: number;
+  className?: string;
+  label?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
+
+  const close = () => {
+    setClosing(true);
+    window.setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+    }, 550);
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    document.body.classList.add("phone-expanded");
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.classList.remove("phone-expanded");
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <>
+      <div
+        className={`phone-trigger ${className}`}
+        role="button"
+        tabIndex={0}
+        aria-label={label}
+        onClick={() => setOpen(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen(true);
+          }
+        }}
+      >
+        {children}
+        <span className="phone-trigger-hint" aria-hidden="true">
+          <IconMaximize className="w-4 h-4" />
+        </span>
+      </div>
+      {open &&
+        createPortal(
+          <div
+            className={`phone-overlay ${closing ? "is-closing" : ""}`}
+            onClick={close}
+            role="dialog"
+            aria-modal="true"
+            aria-label={label}
+          >
+            <button type="button" className="phone-overlay-close" onClick={close} aria-label="Fechar visualização ampliada">
+              <IconX className="w-5 h-5" />
+            </button>
+            <div
+              className={`phone-overlay-content ${closing ? "is-closing" : ""}`}
+              style={{ "--phone-expand-scale": scale } as React.CSSProperties}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {children}
+            </div>
+          </div>,
+          document.body
+        )}
+    </>
   );
 }
 
@@ -200,11 +393,15 @@ function Hero() {
         <div className="relative flex justify-center lg:justify-end animate-float">
           <div className="absolute -inset-10 rounded-[60px] bg-white/10 blur-3xl" />
           <div className="relative">
-            <HeroPhone />
+            <ExpandablePhone scale={1.6} label="Ampliar tela do app Pronto!">
+              <HeroPhone />
+            </ExpandablePhone>
             {/* floating badges */}
             <div className="hidden sm:block absolute -left-10 top-12 glass-card rounded-2xl px-3 py-2 shadow-soft">
               <div className="flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg flex items-center justify-center text-white" style={{ background: "var(--brand-amber)" }}>⏱️</span>
+                <span className="w-7 h-7 rounded-lg flex items-center justify-center text-white" style={{ background: "var(--brand-amber)" }}>
+                  <IconClock className="w-3.5 h-3.5" />
+                </span>
                 <div className="text-xs">
                   <p className="font-bold text-brand-navy leading-none">−10 min</p>
                   <p className="text-muted-foreground text-[10px]">por atendimento</p>
@@ -229,10 +426,10 @@ function Hero() {
 
 function Problem() {
   const steps = [
-    { n: "01", t: "Cliente enfrenta fila", d: "Acúmulo no balcão nos horários de pico.", icon: "👥" },
-    { n: "02", t: "Atendente anota o pedido e pede o WhatsApp", d: "Coleta manual de telefone, agenda lotada.", icon: "📝" },
-    { n: "03", t: "Pedido fica pronto, atendente para tudo pra ligar", d: "Interrompe outros atendimentos.", icon: "📞" },
-    { n: "04", t: "Erros: contato trocado, internet caiu, cliente desistiu", d: "Falhas que custam vendas.", icon: "⚠️" },
+    { n: "01", t: "Cliente enfrenta fila", d: "Acúmulo no balcão nos horários de pico.", icon: IconUsers },
+    { n: "02", t: "Atendente anota o pedido e pede o WhatsApp", d: "Coleta manual de telefone, agenda lotada.", icon: IconClipboardList },
+    { n: "03", t: "Pedido fica pronto, atendente para tudo pra ligar", d: "Interrompe outros atendimentos.", icon: IconPhone },
+    { n: "04", t: "Erros: contato trocado, internet caiu, cliente desistiu", d: "Falhas que custam vendas.", icon: IconAlertTriangle },
   ];
   return (
     <section id="problema" className="py-24 lg:py-32">
@@ -246,7 +443,9 @@ function Problem() {
           {steps.map((s) => (
             <div key={s.n} className="reveal rounded-3xl bg-card p-6 shadow-soft border border-border hover:-translate-y-1 transition">
               <div className="flex items-start justify-between">
-                <span className="text-3xl">{s.icon}</span>
+                <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-secondary text-brand-green-deep">
+                  <s.icon className="w-6 h-6" />
+                </span>
                 <span className="text-xs font-extrabold text-muted-foreground tracking-widest">{s.n}</span>
               </div>
               <h3 className="mt-6 text-lg text-brand-navy">{s.t}</h3>
@@ -317,7 +516,7 @@ function Solution() {
             {["Panqueca de carne", "Suco de laranja", "Salada extra"].map((i) => (
               <div key={i} className="flex justify-between text-[10px]">
                 <span className="text-brand-navy font-semibold">{i}</span>
-                <span className="text-muted-foreground">✓</span>
+                <IconCheck className="w-3 h-3 text-brand-green-deep" />
               </div>
             ))}
           </div>
@@ -336,7 +535,7 @@ function Solution() {
               </div>
               <div>
                 <p className="text-[9px] font-bold text-brand-navy">PRONTO!</p>
-                <p className="text-[10px] text-brand-navy/80 leading-tight">🔔 Seu pedido está pronto!</p>
+                <p className="text-[10px] text-brand-navy/80 leading-tight">Seu pedido está pronto!</p>
               </div>
             </div>
           </div>
@@ -360,7 +559,9 @@ function Solution() {
               <h3 className="mt-5 text-lg text-brand-navy">{s.t}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">{s.d}</p>
               <div className="mt-5">
-                <MiniPhone>{s.mock}</MiniPhone>
+                <ExpandablePhone scale={2.2} className="mx-auto" label={`Ampliar passo ${s.n}: ${s.t}`}>
+                  <MiniPhone>{s.mock}</MiniPhone>
+                </ExpandablePhone>
               </div>
             </div>
           ))}
@@ -415,12 +616,12 @@ function Solution() {
 
 function Benefits() {
   const items = [
-    { i: "⚡", t: "Redução de filas", d: "Liberação imediata do balcão." },
-    { i: "🚀", t: "Atendimento mais rápido", d: "Menos tempo por cliente." },
-    { i: "🔒", t: "Zero coleta de dados pessoais", d: "Sem telefone, sem cadastro." },
-    { i: "✅", t: "Menos erros operacionais", d: "Cliente certo, pedido certo." },
-    { i: "📏", t: "Padronização do processo", d: "Funciona igual em todo turno." },
-    { i: "💸", t: "Acessível para pequenos e médios", d: "Sem hardware caro." },
+    { i: IconZap, t: "Redução de filas", d: "Liberação imediata do balcão." },
+    { i: IconRocket, t: "Atendimento mais rápido", d: "Menos tempo por cliente." },
+    { i: IconLock, t: "Zero coleta de dados pessoais", d: "Sem telefone, sem cadastro." },
+    { i: IconShieldCheck, t: "Menos erros operacionais", d: "Cliente certo, pedido certo." },
+    { i: IconRuler, t: "Padronização do processo", d: "Funciona igual em todo turno." },
+    { i: IconWallet, t: "Acessível para pequenos e médios", d: "Sem hardware caro." },
   ];
   return (
     <section className="py-24 lg:py-32">
@@ -432,7 +633,9 @@ function Benefits() {
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map((b, i) => (
             <div key={b.t} className="reveal rounded-3xl bg-card p-7 border border-border shadow-soft hover:-translate-y-1 hover:shadow-float transition">
-              <span className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl text-2xl ${i % 2 ? "bg-amber-100" : "bg-brand-green-soft"}`}>{b.i}</span>
+              <span className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl ${i % 2 ? "bg-amber-100 text-brand-amber" : "bg-brand-green-soft text-brand-green-deep"}`}>
+                <b.i className="w-6 h-6" />
+              </span>
               <h3 className="mt-5 text-xl text-brand-navy">{b.t}</h3>
               <p className="mt-2 text-muted-foreground leading-relaxed">{b.d}</p>
             </div>
@@ -590,7 +793,9 @@ function CTA() {
           </a>
         </div>
         <div className="flex justify-center lg:justify-end animate-float">
-          <HeroPhone />
+          <ExpandablePhone scale={1.6} label="Ampliar tela do app Pronto!">
+            <HeroPhone />
+          </ExpandablePhone>
         </div>
       </div>
     </section>

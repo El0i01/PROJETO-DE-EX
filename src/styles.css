@@ -125,11 +125,33 @@
   50% { transform: translateY(-10px); }
 }
 @keyframes push-in {
-  0% { opacity: 0; transform: translateY(-16px) scale(0.96); }
-  10% { opacity: 1; transform: translateY(0) scale(1.02); }
-  18% { transform: translateY(0) scale(1); }
-  85% { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  0%, 18% { opacity: 0; transform: translateY(-16px) scale(0.96); }
+  20% { opacity: 1; transform: translateY(0) scale(1.02); }
+  24% { transform: translateY(0) scale(1); }
+  32% { opacity: 1; transform: translateY(0) scale(1); }
+  37%, 100% { opacity: 0; transform: translateY(-8px) scale(0.98); }
+}
+@keyframes phone-vibrate {
+  0%, 19%, 27%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  20% { transform: translate3d(-3px, 0, 0) rotate(-1deg); }
+  21% { transform: translate3d(3px, 0, 0) rotate(1deg); }
+  22% { transform: translate3d(-3px, 0, 0) rotate(-1deg); }
+  23% { transform: translate3d(3px, 0, 0) rotate(1deg); }
+  24% { transform: translate3d(-2px, 0, 0) rotate(-0.5deg); }
+  25% { transform: translate3d(2px, 0, 0) rotate(0.5deg); }
+  26% { transform: translate3d(-1px, 0, 0) rotate(0deg); }
+}
+@keyframes success-screen {
+  0%, 28% { opacity: 0; transform: scale(0.92); }
+  34% { opacity: 1; transform: scale(1); }
+  82% { opacity: 1; transform: scale(1); }
+  90%, 100% { opacity: 0; transform: scale(0.96); }
+}
+@keyframes success-check-pop {
+  0%, 30% { opacity: 0; transform: scale(0); }
+  40% { opacity: 1; transform: scale(1.15); }
+  48%, 86% { opacity: 1; transform: scale(1); }
+  94%, 100% { opacity: 0; transform: scale(0.85); }
 }
 @keyframes reveal-up {
   from { opacity: 0; transform: translateY(24px); }
@@ -141,9 +163,166 @@
 }
 
 .animate-float { animation: float-y 6s ease-in-out infinite; }
-.animate-push { animation: push-in 6s ease-in-out infinite; }
+.animate-push { animation: push-in 8s ease-in-out infinite; }
+.animate-shake { animation: phone-vibrate 8s ease-in-out infinite; }
+.animate-success { animation: success-screen 8s ease-in-out infinite; pointer-events: none; }
+.animate-success-check { animation: success-check-pop 8s ease-in-out infinite; }
 .animate-reveal { animation: reveal-up 0.7s cubic-bezier(.2,.7,.2,1) both; }
 .animate-status { animation: status-fill 2.2s ease-out forwards; }
 
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---------- Expandable phone mockups ---------- */
+.phone-trigger {
+  position: relative;
+  display: block;
+  width: fit-content;
+  cursor: pointer;
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), filter .45s ease;
+}
+.phone-trigger:hover,
+.phone-trigger:focus-visible {
+  transform: scale(1.025) rotate(-1deg);
+  filter: drop-shadow(0 24px 40px rgba(13, 19, 33, 0.25));
+}
+.phone-trigger:active { transform: scale(0.98); }
+.phone-trigger:focus-visible {
+  outline: 3px solid var(--brand-amber);
+  outline-offset: 6px;
+  border-radius: 32px;
+}
+.phone-trigger-hint {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-navy);
+  background: color-mix(in oklab, white 85%, transparent);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: scale(.7);
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+.phone-trigger:hover .phone-trigger-hint,
+.phone-trigger:focus-visible .phone-trigger-hint {
+  opacity: 1;
+  transform: scale(1);
+}
+
+body.phone-expanded { overflow: hidden; }
+
+.phone-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--brand-navy) 70%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  perspective: 1800px;
+  animation: overlay-fade-in .35s ease both;
+}
+.phone-overlay.is-closing { animation: overlay-fade-out .5s ease both; }
+
+.phone-overlay-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: color-mix(in oklab, white 12%, transparent);
+  border: 1px solid color-mix(in oklab, white 25%, transparent);
+  backdrop-filter: blur(10px);
+  transition: background .2s ease, transform .2s ease;
+}
+.phone-overlay-close:hover {
+  background: color-mix(in oklab, white 22%, transparent);
+  transform: scale(1.05);
+}
+
+.phone-overlay-content {
+  transform-style: preserve-3d;
+  animation: phone-spiral-in 1s cubic-bezier(.16,1,.3,1) both;
+}
+.phone-overlay-content.is-closing {
+  animation: phone-spiral-out .55s cubic-bezier(.7,0,.84,0) both;
+}
+
+@keyframes overlay-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes overlay-fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+@keyframes phone-spiral-in {
+  0% {
+    opacity: 0;
+    transform: translateZ(-700px) rotateY(-720deg) rotateX(35deg) rotateZ(-18deg) scale(0.25);
+    filter: blur(18px);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(var(--phone-expand-scale, 1.6));
+    filter: blur(0px);
+  }
+}
+
+@keyframes phone-spiral-out {
+  0% {
+    opacity: 1;
+    transform: translateZ(0) rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(var(--phone-expand-scale, 1.6));
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateZ(-700px) rotateY(540deg) rotateX(-30deg) rotateZ(14deg) scale(0.25);
+    filter: blur(18px);
+  }
+}
+
+@media (max-width: 640px) {
+  .phone-overlay-content { --phone-expand-scale: 1.15 !important; }
+}
+
+/* cascade: rest of the page blurs out in sequence while a phone is expanded */
+body.phone-expanded main > * {
+  transition: filter .6s cubic-bezier(.2,.7,.2,1), opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1);
+  filter: blur(10px);
+  opacity: .25;
+  transform: scale(.97);
+}
+body.phone-expanded main > *:nth-child(1) { transition-delay: 0ms; }
+body.phone-expanded main > *:nth-child(2) { transition-delay: 30ms; }
+body.phone-expanded main > *:nth-child(3) { transition-delay: 60ms; }
+body.phone-expanded main > *:nth-child(4) { transition-delay: 90ms; }
+body.phone-expanded main > *:nth-child(5) { transition-delay: 120ms; }
+body.phone-expanded main > *:nth-child(6) { transition-delay: 150ms; }
+body.phone-expanded main > *:nth-child(7) { transition-delay: 180ms; }
+body.phone-expanded main > *:nth-child(8) { transition-delay: 210ms; }
+body.phone-expanded main > *:nth-child(9) { transition-delay: 240ms; }
+body.phone-expanded main > *:nth-child(10) { transition-delay: 270ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .phone-trigger, .phone-overlay, .phone-overlay-content, body.phone-expanded main > *,
+  .animate-shake, .animate-success, .animate-success-check {
+    animation: none !important;
+    transition: none !important;
+  }
+}
